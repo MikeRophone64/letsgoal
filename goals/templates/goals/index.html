@@ -1,0 +1,10 @@
+{% extends 'goals/layout.html' %}
+
+{% block body %}
+    <h1>Hello world</h1>
+    {% for item in goals %}
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.num_likes }}</p>
+        
+    {% endfor %}
+{% endblock %}

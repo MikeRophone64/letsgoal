@@ -40,7 +40,7 @@ class Goal(models.Model):
     purpose             =   models.TextField(max_length=140, blank=True)
     status              =   models.CharField(max_length=50, choices=status_choices, default=status_choices[1][1])
     private             =   models.BooleanField(default=False)
-    likes               =   models.ManyToManyField(User, blank=True, related_name="users_like")
+    likes               =   models.ManyToManyField(User, default=None, blank=True, related_name="users_like")
     support             =   models.ManyToManyField(User, blank=True,  related_name="users_support")
     copied_by           =   models.ManyToManyField(User, blank=True,  related_name="users_copies")
     copied_times        =   models.IntegerField(default=0)
