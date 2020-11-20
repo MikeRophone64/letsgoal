@@ -6,8 +6,12 @@
 
     <h1> WELCOME </h1>
 
-    {% if message %}
-        <div>{{ message }}</div>
+    {% if user.is_authenticated %}
+        <h2>You made it!!!!!</h2>
+        <a href="{% url 'goals:logout' %}">Log me out</a>
+    {% else%}
+        <a href="{% url 'goals:register' %}">register here</a>
+        <a href="{% url 'goals:login' %}">Login here</a>
     {% endif %}
 
 

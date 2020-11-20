@@ -5,7 +5,7 @@ $orange: #E07800;
 $orangeShadow: #944F00;
 
 
-@mixin containerCenter {
+%containerCenter {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,7 +25,7 @@ body {
     background-repeat: repeat space;
 
     .form-container {
-        @include containerCenter;
+        @extend %containerCenter;
     
         
         form {

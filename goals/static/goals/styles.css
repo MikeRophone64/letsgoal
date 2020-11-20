@@ -1,15 +1,3 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #71D4FF !important;
-}
-
-.login-form {
-  background-image: url("images/Letsgoal_BG.svg");
-  background-size: 400px;
-  background-repeat: repeat space;
-}
-
 .login-form .form-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -21,6 +9,18 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #71D4FF !important;
+}
+
+.login-form {
+  background-image: url("images/Letsgoal_BG.svg");
+  background-size: 400px;
+  background-repeat: repeat space;
 }
 
 .login-form .form-container form {
