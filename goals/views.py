@@ -16,7 +16,11 @@ def index(request):
 
 
 def register(request):
-    pass
+    if request.method == "POST":
+        pass
+    
+    return render(request, 'goals/register.html')
+
 
 
 def login(request):
