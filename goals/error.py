@@ -1,5 +1,8 @@
 def catch(*args):
     print("===============================")
-    for item in args:
-        print(">>> " + item)
+    if args:
+        for item in args:
+            print(">>> " + str(item))
+    else:
+        print(">>> hello")
     print("===============================")

@@ -4,14 +4,32 @@
 
 {% block body %}
 
-    <h1> WELCOME </h1>
-
     {% if user.is_authenticated %}
-        <h2>You made it!!!!!</h2>
-        <a href="{% url 'goals:logout' %}">Log me out</a>
-    {% else%}
-        <a href="{% url 'goals:register' %}">register here</a>
-        <a href="{% url 'goals:login' %}">Login here</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"><img src="static/goals/images/Checkmark.png" alt=""> Let's Goal!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="#">New Goal</a>
+                    <a class="nav-item nav-link" href="#">My Profile</a>
+                    <a class="nav-item nav-link" href="{% url 'goals:logout' %}">Logout</a>
+                </div>
+            </div>
+        </nav>
+        <section class="dashboard">
+            {% for goal in goals %}
+                <div class="goal-container">
+                    {{ goal.title }} 
+
+                </div>
+            {% endfor %}
+        </section>
+    {% else %}
+
+        Nothing here,,,,
+
     {% endif %}
 
 

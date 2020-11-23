@@ -11,6 +11,7 @@ from .error import catch
 
 
 # Create your views here.
+@login_required(login_url="goals:login")
 def index(request):
     user = request.user
     goals = Goal.objects.all()
@@ -57,16 +58,17 @@ def login_view(request):
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            catch(user)
             login(request, user)
-            messages.info(request, f"Welcome {user}!", extra_tags="success")
             return HttpResponseRedirect(reverse("goals:index"))
         else:
             messages.info(request, "Try again...", extra_tags="danger")
-            return HttpResponseRedirect(reverse("goalslogin"))
+            return HttpResponseRedirect(reverse("goals:login"))
     
     return render(request, "goals/login.html")
 
 
 def logout_view(request):
     logout(request)
+    messages.info(request, "You have been logged out!", extra_tags="success")
     return HttpResponseRedirect(reverse("goals:index"))

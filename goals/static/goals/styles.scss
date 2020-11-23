@@ -3,44 +3,70 @@ $lightblue:#71D4FF;
 $blueShadow: #006894;
 $orange: #E07800;
 $orangeShadow: #944F00;
+$gradientWhite: linear-gradient(15deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 90%);
 
 
 %containerCenter {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+
 }
 
 body {
     margin: 0;
     padding: 0;
-    background-color: $lightblue !important;
+    background-color: $blueShadow !important;
 }
 
 .login-form {
 
-    background-image: url('images/Letsgoal_BG.svg');
-    background-size: 400px;
-    background-repeat: repeat space;
+    img {
+        height: 90px;
+        display: block;
+        margin: auto;
+    }
 
     .form-container {
         @extend %containerCenter;
-    
+        height: 100vh;
         
         form {
             padding: 30px;
-            background-color: #fff;
+            background: rgb(255,255,255);
+            background: $gradientWhite;
             width: 50vh;
-            border: 1px solid $Containerborders;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid gradientWhite;
+            border-radius: 30px;
+            // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+            h2 {
+                text-align: center;
+                color: $orange;
+                padding: 5px;
+            }
+            .form-control, .btn-primary {
+                border-radius: 30px;
+                width: 100%;
+            }
+
+            .btn-primary {
+                background-color: $orange;
+                border: none;
+                box-shadow: 0px 0px 5px $orangeShadow;
+            }
+            a {
+                align-items: center;
+                font-size: .8em;
+            }
         }
     }
 }
 
 
-
+.navbar img {
+    height: 30px;
+}
 @media(max-width: 500px) {
 
     .form-container {

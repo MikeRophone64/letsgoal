@@ -1,0 +1,18 @@
+
+Pages
+
+- Login page
+- Register Page
+- Dashboard (index)
+    - create new Goal button
+- Profile Page
+    - Change profile
+        - change image
+        - change name
+        - change password
+        - statistics
+            - number of goals
+            - number of achieved goals
+            - number of goals in progress
+            - number of not started
+- 

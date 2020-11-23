@@ -13,20 +13,20 @@
 {% endif %}
 
 <section class="login-form">
-
     <div class="form-container">
         <form action="{% url 'goals:login' %}" method="POST">
+            <img src="{% static 'goals/images/Checkmark.png' %}" alt="Let's Goal logo">
             {% csrf_token %}
-            <h1> LOGIN HERE </h1>
+            <h2> Login </h2>
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" name="username">
+                <input type="text" class="form-control" name="username" placeholder="Username">
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{% url 'goals:register' %}">Sign up here</a>
+
         </form>
     </div>
 
