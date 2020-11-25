@@ -12,4 +12,6 @@ urlpatterns = [
 
     # API views
     path("api/v1/goals/", goals.api_views.GoalList.as_view()),
+    path("api/v1/goals/new", goals.api_views.GoalCreate.as_view()),
+    path("api/v1/goals/<int:id>/", goals.api_views.GoalRetrieveUpdateDestroy.as_view()),
 ]
