@@ -6,6 +6,9 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     pass
 
+    def __str__(self):
+        return self.username
+
 class Profile(models.Model):
     user                =   models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture     =   models.URLField(blank=True)
@@ -43,8 +46,8 @@ class Goal(models.Model):
     likes               =   models.ManyToManyField(User, default=None, blank=True, related_name="users_like")
     support             =   models.ManyToManyField(User, blank=True,  related_name="users_support")
     copied_by           =   models.ManyToManyField(User, blank=True,  related_name="users_copies")
-    copied_times        =   models.IntegerField(default=0)
     # origin              =   models.ForeignKey("self")
+
 
     def __str__(self):
         return f"{self.created_by} - {self.title}"
@@ -52,6 +55,22 @@ class Goal(models.Model):
     @property
     def num_likes(self):
         return self.likes.all().count()
+
+    @property
+    def num_supports(self):
+        return self.support.all().count()
+
+    @property
+    def num_copies(self):
+        return self.copied_by.all().count()
+
+    @property
+    def trending(self):
+        top_five = Goal.objects.all().order_by('-likes')[:1]
+        if self in top_five:
+            return True
+        return False
+
 
 class Like(models.Model):
     liked_by            =   models.ForeignKey(User, on_delete=models.CASCADE)
