@@ -1,4 +1,4 @@
-#!/Users/Mike/Documents/Learning/CS50 Web/finalproject/goals_env/bin/python3
+#!/Users/Mike/Documents/Learning/CS50 Web/finalproject/goals_env/bin/python
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
