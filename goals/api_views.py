@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
@@ -32,7 +33,8 @@ class GoalCreate(CreateAPIView):
     serializer_class = GoalSerializer
 
     def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        response = super().create(request, *args, **kwargs)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 class GoalRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Goal.objects.all()

@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
-from .models import User, Profile, Goal, Like
+from .models import User, Profile, Goal, Like, GoalStatus
+from .forms import GoalForm
 
 from .error import catch
 
@@ -13,10 +14,54 @@ from .error import catch
 # Create your views here.
 @login_required(login_url="goals:login")
 def index(request):
-    user = request.user
+    current_user = User.objects.get(username=request.user)
     goals = Goal.objects.all()
     return render(request, 'goals/index.html', context= {
+        "current_user": current_user,
+        "GoalForm": GoalForm,
         "goals": goals
+    })
+
+@login_required(login_url="goals:login")
+def new_goal(request):
+    current_user = User.objects.get(username=request.user)
+
+    if request.method == "POST":
+        form = GoalForm(request.POST)
+
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            term = form.cleaned_data['term']
+            deadline = form.cleaned_data['deadline']
+            category = form.cleaned_data['category']
+            description = form.cleaned_data['description']
+            purpose = form.cleaned_data['purpose']
+            status = GoalStatus.objects.get(pk=1)
+            
+            add = Goal.objects.create(title=title, created_by=current_user, term=term, deadline=deadline, category=category, description=description, purpose=purpose, status=status)
+            add.save()
+            catch(add.id)
+        return HttpResponseRedirect(reverse("goals:goal", kwargs={'id': add.id}))
+
+    return HttpResponseRedirect(reverse("goals:index"))
+
+
+def goal(request, id):
+    current_user = User.objects.get(username=request.user)
+
+    try:
+        selected_goal = Goal.objects.get(pk=id)
+        print(">>>> GOAL FOUND")
+
+    except Goal.DoesNotExist:
+        selected_goal = None
+        print(">>>> THIS GOAL DOES NOT EXIST")
+        return HttpResponseRedirect(reverse("goals:index"))
+
+    return render(request, 'goals/goal.html', context= {
+        "GoalForm": GoalForm,
+        "current_user": current_user,
+        "goal": selected_goal,
     })
 
 

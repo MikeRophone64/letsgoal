@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,51 @@
     <title>{% block title %}Goals{% endblock %}</title>
 </head>
 <body>
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'goals:index' %}"><img src=" {% static 'goals/images/Checkmark.png' %}" alt=""> Let's Goal!</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+              <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#newGoalModal">New Goal</a>
+              <a class="nav-item nav-link" href="#">My Profile</a>
+              <a class="nav-item nav-link" href="{% url 'goals:logout' %}">Logout</a>
+          </div>
+      </div>
+    </nav>
+
     {% block body %}
     {% endblock %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="newGoalModal" tabindex="-1" role="dialog" aria-labelledby="newGoalModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newGoalModalLabel">Target, Time, Thrust</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!-- FORM -->
+          <form action="{% url 'goals:new_goal' %}" method="POST">
+            <div class="modal-body">
+                {% csrf_token %}
+                {{ GoalForm|crispy }}
+
+                <input type="hidden" name="created_by" value="{{ current_user.id }}">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $(document).ready(function() {
         $( function() {
-            $('#datepicker').datepicker();
+            $('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
             console.log("JQuery ok")
         })
 

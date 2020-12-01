@@ -1,0 +1,31 @@
+{% extends 'goals/layout.html' %}
+
+{% block title %} My Goal {% endblock %}
+
+{% block body %}
+    <div class="goal-detail-container rounded">
+        <div class="goal-detail-header">
+            <img src="{{ goal.category.icon.url }}" alt="">
+            <div class="goal-detail-header-text">
+                <h2>{{ goal.title }}</h2>
+                <h5> {{ goal.category }} Goal
+                    {% if request.user != current_user %}
+                    <small> by {{ goal.created_by }}</small>
+                    {% endif %}
+                </h5>
+                <p>Deadline: {{ goal.deadline }}</p>
+            </div>
+            <div class="float-right">
+                <a href="#" class="btn btn-primary">+ Step</a>
+                <p style="display: block; margin-top: 10px;" class="badge badge-pill {% if goal.status.id == 1 %} badge-secondary {% elif goal.status.id == 2 %} badge-warning {% else %} badge-success {% endif %}">{{ goal.status }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="goal-detail-description">
+            <p>{{ goal.description }}</p>
+        </div>
+
+        <p>{{ goal.}}</p>
+
+    </div>
+{% endblock %}

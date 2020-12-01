@@ -13,6 +13,13 @@ $gradientWhite: linear-gradient(15deg, rgba(255,255,255,0.6) 0%, rgba(255,255,25
 
 }
 
+%btn-primary {
+    background-color: $orange;
+    border: none;
+    box-shadow: 0px 0px 5px $orangeShadow;
+    border-radius: 30px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -38,7 +45,6 @@ body {
             width: 50vh;
             border: 1px solid gradientWhite;
             border-radius: 30px;
-            // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
             h2 {
                 text-align: center;
@@ -51,9 +57,7 @@ body {
             }
 
             .btn-primary {
-                background-color: $orange;
-                border: none;
-                box-shadow: 0px 0px 5px $orangeShadow;
+                @extend %btn-primary;
             }
             a {
                 align-items: center;
@@ -67,6 +71,81 @@ body {
 .navbar img {
     height: 30px;
 }
+
+.dashboard {
+    width: 90%;
+    margin: auto;
+}
+
+.card-container {
+
+    margin-top: 30px;
+
+    .card {
+        margin: 20px;
+        max-height: 300px;
+
+        .btn {
+            @extend %btn-primary;
+            text-align: center;
+        }
+        
+        .card-text {
+            max-height: 3em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .card-image {
+            margin-top: -10%;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100px;
+            
+        }
+    }
+}
+
+
+.goal-detail-container {
+    height: 100vh;
+    padding: 20px;
+    background-color: white;
+    margin: 20px;
+    border: 1px solid $Containerborders;
+
+    img {
+        height: 100px;
+        display: inline block;
+    }
+
+    .goal-detail-header {
+        margin-bottom: 20px;
+
+        .btn {
+            @extend %btn-primary
+        }
+    }
+
+    .goal-detail-header-text {
+        display: inline-block;
+        vertical-align: bottom;
+        padding-left: 10px;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .float-right {
+        float: right;
+        
+    }
+
+}
+
+
 @media(max-width: 500px) {
 
     .form-container {

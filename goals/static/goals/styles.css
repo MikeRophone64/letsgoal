@@ -10,6 +10,14 @@
           justify-content: center;
 }
 
+.login-form .form-container form .btn-primary, .card-container .card .btn, .goal-detail-container .goal-detail-header .btn {
+  background-color: #E07800;
+  border: none;
+  -webkit-box-shadow: 0px 0px 5px #944F00;
+          box-shadow: 0px 0px 5px #944F00;
+  border-radius: 30px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -46,13 +54,6 @@ body {
   width: 100%;
 }
 
-.login-form .form-container form .btn-primary {
-  background-color: #E07800;
-  border: none;
-  -webkit-box-shadow: 0px 0px 5px #944F00;
-          box-shadow: 0px 0px 5px #944F00;
-}
-
 .login-form .form-container form a {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -62,6 +63,69 @@ body {
 
 .navbar img {
   height: 30px;
+}
+
+.dashboard {
+  width: 90%;
+  margin: auto;
+}
+
+.card-container {
+  margin-top: 30px;
+}
+
+.card-container .card {
+  margin: 20px;
+  max-height: 300px;
+}
+
+.card-container .card .btn {
+  text-align: center;
+}
+
+.card-container .card .card-text {
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-container .card .card-image {
+  margin-top: -10%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100px;
+}
+
+.goal-detail-container {
+  height: 100vh;
+  padding: 20px;
+  background-color: white;
+  margin: 20px;
+  border: 1px solid #ced4da;
+}
+
+.goal-detail-container img {
+  height: 100px;
+  display: inline block;
+}
+
+.goal-detail-container .goal-detail-header {
+  margin-bottom: 20px;
+}
+
+.goal-detail-container .goal-detail-header-text {
+  display: inline-block;
+  vertical-align: bottom;
+  padding-left: 10px;
+}
+
+.goal-detail-container .goal-detail-header-text p {
+  margin: 0;
+}
+
+.goal-detail-container .float-right {
+  float: right;
 }
 
 @media (max-width: 500px) {
