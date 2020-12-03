@@ -8,19 +8,44 @@
 
     <!-- DASHBOARD CONTENT -->
     <section class="dashboard">
-        <div class="d-flex justify-content-around flex-wrap">
-            {% for goal in goals %}
-                <div class="card-container">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-image" src="{{ goal.category.icon.url }}" alt="Card image cap">
-                        <div class="card-body">
-                        <h5 class="card-title" style="text-align: center;">{{ goal.title }}</h5>
-                        <p class="card-text" style="text-align: center;">{{ goal.category }} Goal</p>
-                        <a href="{% url 'goals:goal' goal.id %}" class="btn btn-primary">View Goal</a>
-                        </div>
+
+        {% comment %}
+        <!-- Trending Goal -->
+        <div class="trending-goal">
+            <h2>Trending right now!</h2>
+            <div class="trending-container" id="">
+                <div class="card" style="width: 100%; height: 300px;">
+                    <img class="card-image" src="{{ trending_goal.category.icon.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">{{ trending_goal.title }}</h5>
+                        <p class="card-text" style="text-align: center;">{{ trending_goal.category }} Goal</p>
+                    <a href="" class="btn btn-primary">View Goal</a>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+        </div>
+        <hr>
+        {% endcomment %}
+
+        <!-- My Goals -->
+        <div class="my-goals">
+            <div class="d-flex justify-content-around flex-wrap">
+                {% for goal in goals %}
+                    <div class="card-container" id="card_{{ goal.id }}">
+                        <div class="card" style="width: 18rem;">
+                            <a href="#" type="button" class="close" aria-label="Close" data-id="{{ goal.id }}">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                            <img class="card-image" src="{{ goal.category.icon.url }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;">{{ goal.title }}</h5>
+                                <p class="card-text" style="text-align: center;">{{ goal.category }} Goal</p>
+                            <a href="{% url 'goals:goal' goal.id %}" class="btn btn-primary">View Goal</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
 

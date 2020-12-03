@@ -1,5 +1,6 @@
 from django import forms
 from django.db import models
+from django.db.models import Count, Max
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
@@ -9,10 +10,15 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+
 class Profile(models.Model):
     user                =   models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture     =   models.URLField(blank=True)
-    date_of_birth       =   models.DateField(blank=True)
+    profile_picture     =   models.ImageField(null=True, blank=True)
+    date_of_birth       =   models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user}'s Profile"
+
 
 class Categories(models.Model):
     name                =   models.CharField(max_length=32)
@@ -71,9 +77,11 @@ class Goal(models.Model):
 
     @property
     def is_trending(self):
-        top_five = Goal.objects.all().order_by('-likes')[:1]
-        if self in top_five:
-            return True
+        trending = Goal.objects.all().order_by('-likes')
+        # trending = Goal.objects.aggregate(Max('likes'))
+        print(f">>> {trending}")
+        # if self == trending:
+        #     return True
         return False
 
 

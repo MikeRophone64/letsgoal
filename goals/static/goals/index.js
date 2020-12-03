@@ -7,5 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("JQuery ok")
         })
 
+        $(document).on("click",".close", function() {
+            const id = $(this).attr("data-id");
+            const container = $('#card_' + id);
+            console.log(container)
+
+            const r = confirm("Delete this Goal?")
+            if(r == true) {
+                container.hide()
+                fetch("/delete_goal/" + id)
+            }
+        })
     });
+
 })

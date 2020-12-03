@@ -2,26 +2,42 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
+
 from .models import User, Profile, Goal, Like, GoalStatus
-from .forms import GoalForm
+from .forms import GoalForm, UserForm, ProfileForm
 
 from .error import catch
 
 
-# Create your views here.
+# ==================================================== INDEX VIEW
 @login_required(login_url="goals:login")
 def index(request):
     current_user = User.objects.get(username=request.user)
-    goals = Goal.objects.all()
+    all_goals = Goal.objects.all()
+    goals = Goal.objects.filter(created_by=current_user)
+    
+    # for goal in all_goals:
+    #     if goal.is_trending == True:
+    #         trending_goal = goal
+
+    # Paginator
+    p = Paginator(goals, 4)
+    page_num = request.GET.get('page', 1)
+    page = p.page(page_num)
+
     return render(request, 'goals/index.html', context= {
         "current_user": current_user,
         "GoalForm": GoalForm,
-        "goals": goals
+        "goals": page,
+        # "trending_goal": trending_goal,
     })
 
+
+# ==================================================== CREATE NEW GOAL
 @login_required(login_url="goals:login")
 def new_goal(request):
     current_user = User.objects.get(username=request.user)
@@ -46,6 +62,17 @@ def new_goal(request):
     return HttpResponseRedirect(reverse("goals:index"))
 
 
+# ==================================================== DELETE A GOAL
+@login_required(login_url="goals:login")
+def delete_goal(request, id):
+    goal_to_delete = Goal.objects.get(pk=id)
+    goal_to_delete.delete()
+    
+    return HttpResponseRedirect(reverse("goals:index"))
+
+
+# ==================================================== GOAL VIEW
+@login_required(login_url="goals:login")
 def goal(request, id):
     current_user = User.objects.get(username=request.user)
 
@@ -65,6 +92,38 @@ def goal(request, id):
     })
 
 
+# ==================================================== USER PROFILE
+@login_required(login_url="goals:login")
+def profile(request, username):
+
+    if request.method == 'POST':
+        pass
+
+
+    # if no profile exists, create one 
+    try:
+        current_user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        messages.info(request, "This profile dos not exist...", extra_tags="danger")
+        return HttpResponseRedirect(reverse("goals:index"))
+
+    user_profile = Profile.objects.get_or_create(user=current_user)
+
+    # populate Forms 
+    uf_data = {'username': current_user.username, 'email': current_user.email, 
+                'password': current_user.password,}
+    pf_data = {'date_of_birth': current_user.profile.date_of_birth}
+    user_form = UserForm(initial=uf_data)
+    profile_form = ProfileForm(initial=pf_data)
+
+    return render(request, 'goals/user_profile.html', context= {
+        'current_user': current_user,
+        'UserForm': user_form,
+        'ProfileForm': profile_form,
+    })
+
+
+# ==================================================== REGISTER VIEW
 def register(request):
     if request.method == "POST":
 
@@ -89,12 +148,12 @@ def register(request):
             return HttpResponseRedirect('register')
 
         login(request, user)
-        return HttpResponseRedirect('index')
+        return HttpResponseRedirect('goals:index')
 
     return render(request, 'goals/register.html')
 
 
-
+# ==================================================== LOGIN VIEW
 def login_view(request):
     if request.method == "POST":
 

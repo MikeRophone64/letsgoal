@@ -9,6 +9,6 @@ admin.site.register(GoalStatus)
 
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
-    list_display = ['title', 'created_by', 'term', 'category', 'status']
+    list_display = ['title', 'created_by', 'term', 'category', 'status', 'num_likes', 'is_trending']
 
 admin.site.register(Like)

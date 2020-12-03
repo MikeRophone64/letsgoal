@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Goal
+from .models import Goal, User, Profile
 
 
 class GoalForm(forms.ModelForm):
@@ -12,11 +12,16 @@ class GoalForm(forms.ModelForm):
         model = Goal
         fields = ['title', 'description', 'category', 'amount', 'term', 'deadline', 'purpose']
         labels = {'deadline': 'Accomplish this Goal by:'}
-        # widgets = {
-        #     'title': forms.TextInput(attrs={"class": "form-control"}),
-        #     'description': forms.Textarea(attrs={"class": "form-control"}),
-        #     'category': forms.Select(attrs={"class": "form-control"}),
-        #     'term': forms.Select(attrs={"class": "form-control"}),
-        #     # 'deadline': forms.DateInput(attrs={"class": "form-control", "id": "datepicker"}),
-        #     'purpose': forms.Textarea(attrs={"class": "form-control"}),
-        #     }
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=(forms.DateInput(format='%d/%m/%Y', attrs={'class': 'form-control', 'id': 'datepicker'})))
+    class Meta:
+        model = Profile
+        fields = ['profile_picture', 'date_of_birth',]
+        labels = {'date_of_birth': 'Date of birth'}

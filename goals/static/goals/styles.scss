@@ -98,15 +98,55 @@ body {
         }
 
         .card-image {
-            margin-top: -10%;
+            margin-top: -20%;
             margin-left: auto;
             margin-right: auto;
             max-width: 100px;
             
         }
+
+        .close {
+            width: 30px;
+            align-self: flex-end;
+        }
+
     }
 }
 
+.trending-goal h2 {
+    text-align: center !important;
+    color: white;
+}
+
+
+.trending-container {
+    margin-top: 30px;
+
+    .card {
+        max-height: 300px;
+        padding: 20px;
+
+        .btn {
+            @extend %btn-primary;
+            text-align: center;
+        }
+        
+        .card-text {
+            max-height: 3em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .card-image {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100px;
+            
+        }
+
+    }
+}
 
 .goal-detail-container {
     height: 100vh;
@@ -124,7 +164,7 @@ body {
         margin-bottom: 20px;
 
         .btn {
-            @extend %btn-primary
+            @extend %btn-primary;
         }
     }
 
@@ -140,11 +180,25 @@ body {
 
     .float-right {
         float: right;
-        
+
     }
 
 }
 
+.profile {
+
+    .profile-container {
+        @extend %containerCenter;
+        
+        form {
+            color: white;
+            padding: 20px;
+            width: 50vh;
+            background-color: rgba(255, 255, 255, 0.205);
+        }
+    }
+
+}
 
 @media(max-width: 500px) {
 

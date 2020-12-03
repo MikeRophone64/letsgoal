@@ -1,0 +1,27 @@
+{% extends 'goals/layout.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %} Profile {% endblock %}
+
+{% block body %}
+{% if user == current_user %}
+    <h1>WELCOME HOME</h1>
+{% else %}
+    <h1>Profile: {{current_user}}</h1>
+{% endif %}
+<div class="profile">
+    <div class="profile-container">
+        <h4></h4>
+        <form action="" class="rounded">
+            {% csrf_token %}
+            {{ UserForm|crispy }}
+            <label for="date_of_birth">{{ ProfileForm.date_of_birth.label }}</label>
+            {{ ProfileForm.date_of_birth }}
+        </form>
+    
+    </div>
+</div>
+
+<a href="{% url 'goals:index' %}">Back home</a>
+{% endblock%}

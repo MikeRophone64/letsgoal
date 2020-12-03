@@ -1,4 +1,4 @@
-.login-form .form-container {
+.login-form .form-container, .profile .profile-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -10,7 +10,7 @@
           justify-content: center;
 }
 
-.login-form .form-container form .btn-primary, .card-container .card .btn, .goal-detail-container .goal-detail-header .btn {
+.login-form .form-container form .btn-primary, .card-container .card .btn, .trending-container .card .btn, .goal-detail-container .goal-detail-header .btn {
   background-color: #E07800;
   border: none;
   -webkit-box-shadow: 0px 0px 5px #944F00;
@@ -91,7 +91,44 @@ body {
 }
 
 .card-container .card .card-image {
-  margin-top: -10%;
+  margin-top: -20%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100px;
+}
+
+.card-container .card .close {
+  width: 30px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.trending-goal h2 {
+  text-align: center !important;
+  color: white;
+}
+
+.trending-container {
+  margin-top: 30px;
+}
+
+.trending-container .card {
+  max-height: 300px;
+  padding: 20px;
+}
+
+.trending-container .card .btn {
+  text-align: center;
+}
+
+.trending-container .card .card-text {
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trending-container .card .card-image {
   margin-left: auto;
   margin-right: auto;
   max-width: 100px;
@@ -126,6 +163,13 @@ body {
 
 .goal-detail-container .float-right {
   float: right;
+}
+
+.profile .profile-container form {
+  color: white;
+  padding: 20px;
+  width: 50vh;
+  background-color: rgba(255, 255, 255, 0.205);
 }
 
 @media (max-width: 500px) {
