@@ -1,0 +1,38 @@
+{% extends 'goals/layout.html' %}
+
+{% block title %} Trending Goals {% endblock%}
+
+
+{% block body %}
+  
+
+    <!-- DASHBOARD CONTENT -->
+    <section class="dashboard">
+
+        <!-- All trending Goals -->
+        <div class="my-goals">
+            <div class="d-flex justify-content-around flex-wrap">
+                {% for goal in trending %}
+                    <div class="card-container" id="card_{{ goal.id }}">
+                        <div class="card" style="width: 18rem;">
+                            {% if goal.created_by == user %}
+                                <a href="#" type="button" class="close delete-goal" aria-label="Close" data-id="{{ goal.id }}">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            {% endif %}
+                            <img class="card-image" src="{{ goal.category.icon.url }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: center;" >{{ goal.title }}</h5>
+                                <p class="card-text" style="text-align: center;">{{ goal.category }} Goal by {{ goal.created_by }}</p>
+                            <a href="{% url 'goals:goal' goal.id %}" class="btn btn-primary">View Goal</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

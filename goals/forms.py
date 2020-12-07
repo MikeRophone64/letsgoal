@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Goal, User, Profile
+from .models import Goal, User, Profile, Steps
 
 
 class GoalForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class GoalForm(forms.ModelForm):
 
     class Meta:
         model = Goal
-        fields = ['title', 'description', 'category', 'amount', 'term', 'deadline', 'purpose']
+        fields = ['title', 'description', 'category', 'amount', 'deadline', 'purpose']
         labels = {'deadline': 'Accomplish this Goal by:'}
 
 class UserForm(forms.ModelForm):
@@ -25,3 +25,9 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['profile_picture', 'date_of_birth',]
         labels = {'date_of_birth': 'Date of birth'}
+
+
+class GoalStepForm(forms.ModelForm):
+    class Meta:
+        model = Steps
+        fields = ['title', 'amount']

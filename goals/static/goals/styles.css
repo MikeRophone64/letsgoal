@@ -79,8 +79,16 @@ body {
   max-height: 300px;
 }
 
+.card-container .card .close {
+  position: absolute;
+}
+
 .card-container .card .btn {
   text-align: center;
+}
+
+.card-container .card .card-body {
+  margin-top: 60px;
 }
 
 .card-container .card .card-text {
@@ -91,10 +99,12 @@ body {
 }
 
 .card-container .card .card-image {
-  margin-top: -20%;
-  margin-left: auto;
-  margin-right: auto;
   max-width: 100px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
 .card-container .card .close {
@@ -104,6 +114,7 @@ body {
 }
 
 .trending-goal h2 {
+  margin-top: 10px;
   text-align: center !important;
   color: white;
 }

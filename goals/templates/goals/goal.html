@@ -1,4 +1,5 @@
 {% extends 'goals/layout.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %} My Goal {% endblock %}
 
@@ -15,17 +16,74 @@
                 </h5>
                 <p>Deadline: {{ goal.deadline }}</p>
             </div>
+            {% if goal.created_by == current_user %}
             <div class="float-right">
-                <a href="#" class="btn btn-primary">+ Step</a>
+                {% if goal.status.id != 3 %}
+                    <a href="#" data-toggle="modal" data-target="#newStepModal"class="btn btn-primary">+ Step</a>
+                {% endif %}
                 <p style="display: block; margin-top: 10px;" class="badge badge-pill {% if goal.status.id == 1 %} badge-secondary {% elif goal.status.id == 2 %} badge-warning {% else %} badge-success {% endif %}">{{ goal.status }}</p>
             </div>
+            {% endif %}
         </div>
         <hr>
         <div class="goal-detail-description">
             <p>{{ goal.description }}</p>
+            <p>{{ financial_note }}</p>
         </div>
 
-        <p>{{ goal.}}</p>
 
+
+        <!-- GOAL STEPS -->
+        <div id="goal-steps">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for step in steps %}
+                  <tr>
+                    <th scope="row"></th>
+                    <td>{{ step.created_at|date:"SHORT_DATE_FORMAT"  }}</td>
+                    <td>{{ step.title }}</td>
+                    <td>{{ step.amount }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
     </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="newStepModal" tabindex="-1" role="dialog" aria-labelledby="newStepModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="newStepModalLabel">Target, Time, Thrust</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+      
+                <!-- FORM -->
+                <form action="{% url 'goals:new_goal_step' goal.id %}" method="POST">
+                  <div class="modal-body">
+                      {% csrf_token %}
+                      {{ GoalStepForm|crispy }}
+      
+                      <input type="hidden" name="created_by" value="{{ current_user.id }}">
+                      
+                  </div>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
 {% endblock %}

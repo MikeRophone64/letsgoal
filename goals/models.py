@@ -15,6 +15,7 @@ class Profile(models.Model):
     user                =   models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture     =   models.ImageField(null=True, blank=True)
     date_of_birth       =   models.DateField(null=True, blank=True)
+    display_trending    =   models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.user}'s Profile"
@@ -46,7 +47,7 @@ class Goal(models.Model):
     created_by          =   models.ForeignKey(User, on_delete=models.CASCADE)
     created_at          =   models.DateField(auto_now=True)
     updated_at          =   models.DateField(auto_now=True)
-    term                =   models.CharField(max_length=50, choices=term_choices)
+    term                =   models.CharField(max_length=50, choices=term_choices, default=term_choices[0])
     deadline            =   models.DateField()
     category            =   models.ForeignKey(Categories, on_delete=models.CASCADE)
     amount              =   models.DecimalField(max_digits=8, decimal_places=2, default=0)
@@ -88,7 +89,7 @@ class Goal(models.Model):
 class Steps(models.Model):
     goal            =   models.ForeignKey(Goal, on_delete=models.CASCADE)
     title           =   models.CharField(max_length=32)
-    amount          =   models.DecimalField(decimal_places=2, max_digits=6)
+    amount          =   models.DecimalField(decimal_places=2, max_digits=6, null=True, blank=True)
     created_at      =   models.DateTimeField(auto_now=True)
     completed       =   models.BooleanField(default=False)
 

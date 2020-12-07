@@ -33,6 +33,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
               <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#newGoalModal">New Goal</a>
+              <a class="nav-item nav-link" href="{% url 'goals:trending_goals' %}">Trending Goals</a>
               <a class="nav-item nav-link" href="{% url 'goals:profile' user %}">My Profile</a>
               <a class="nav-item nav-link" href="{% url 'goals:logout' %}">Logout</a>
           </div>
