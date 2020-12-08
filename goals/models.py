@@ -86,6 +86,7 @@ class Goal(models.Model):
         return False
 
 
+
 class Steps(models.Model):
     goal            =   models.ForeignKey(Goal, on_delete=models.CASCADE)
     title           =   models.CharField(max_length=32)

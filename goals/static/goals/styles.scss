@@ -77,6 +77,28 @@ body {
     margin: auto;
 }
 
+.like, .goal-like {
+    margin-left: 20px;
+    display: inline;
+        
+    .like-fill {
+        fill: orange;
+        fill-opacity: 0%;
+    }
+
+    .like-active {
+        fill: orange;
+        fill-opacity: 100% !important;
+    }
+
+    .like-stroke {
+        fill: black;   
+        fill-opacity: 70%;
+    }
+
+
+}
+
 .card-container {
 
     margin-top: 30px;
@@ -138,7 +160,6 @@ body {
 
         .btn {
             @extend %btn-primary;
-            text-align: center;
         }
         
         .card-text {

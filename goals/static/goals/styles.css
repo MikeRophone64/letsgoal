@@ -70,6 +70,26 @@ body {
   margin: auto;
 }
 
+.like, .goal-like {
+  margin-left: 20px;
+  display: inline;
+}
+
+.like .like-fill, .goal-like .like-fill {
+  fill: orange;
+  fill-opacity: 0%;
+}
+
+.like .like-active, .goal-like .like-active {
+  fill: orange;
+  fill-opacity: 100% !important;
+}
+
+.like .like-stroke, .goal-like .like-stroke {
+  fill: black;
+  fill-opacity: 70%;
+}
+
 .card-container {
   margin-top: 30px;
 }
@@ -126,10 +146,6 @@ body {
 .trending-container .card {
   max-height: 300px;
   padding: 20px;
-}
-
-.trending-container .card .btn {
-  text-align: center;
 }
 
 .trending-container .card .card-text {

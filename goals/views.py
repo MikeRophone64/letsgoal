@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.db.models import Count
+from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 
@@ -23,15 +24,10 @@ def index(request):
 
     trending_goal = Goal.objects.annotate(all_likes=Count('likes')).order_by('-all_likes')[0]
 
-    # Paginator
-    p = Paginator(goals, 4)
-    page_num = request.GET.get('page', 1)
-    page = p.page(page_num)
-
     return render(request, 'goals/index.html', context= {
         'current_user': current_user,
         'GoalForm': GoalForm,
-        'goals': page,
+        'goals': goals,
         'trending_goal': trending_goal,
     })
 
@@ -41,7 +37,6 @@ def index(request):
 def trending_goals(request):
     current_user = User.objects.get(username=request.user)
     trending = Goal.objects.annotate(all_likes=Count('likes')).order_by('-all_likes')
-    catch(trending)
 
     return render(request, 'goals/trending.html', context= {
         'current_user': current_user,
@@ -62,13 +57,13 @@ def new_goal(request):
             # term = form.cleaned_data['term']
             deadline = form.cleaned_data['deadline']
             category = form.cleaned_data['category']
+            amount = form.cleaned_data['amount']
             description = form.cleaned_data['description']
             purpose = form.cleaned_data['purpose']
             status = GoalStatus.objects.get(pk=1)
             
-            add = Goal.objects.create(title=title, created_by=current_user, deadline=deadline, category=category, description=description, purpose=purpose, status=status)
+            add = Goal.objects.create(title=title, created_by=current_user, deadline=deadline, category=category, amount=amount, description=description, purpose=purpose, status=status)
             add.save()
-            catch(add.id)
         return HttpResponseRedirect(reverse("goals:goal", kwargs={'id': add.id}))
 
     return HttpResponseRedirect(reverse("goals:index"))
@@ -100,7 +95,7 @@ def goal(request, id):
         goal_steps = Steps.objects.filter(goal=id).order_by('-pk')
 
         #if goal has steps then mark goal status In Progess
-        if goal_steps:
+        if goal_steps and selected_goal.status != GoalStatus.objects.get(pk=3):
             selected_goal.status = GoalStatus.objects.get(pk=2) # pk2 = In Progress
             selected_goal.save()
 
@@ -121,10 +116,13 @@ def goal(request, id):
         
         amount_to_go = goal_amount - to_deduce
         note = f"Only {amount_to_go} to go!"
-
-    if amount_to_go <= 0:
-        note = "WOHOO You made it!"
-        selected_goal.status = GoalStatus.objects.get(pk=3) # pk2 = Accomplished
+    
+        if amount_to_go <= 0:
+            note = "WOHOO You made it!"
+            selected_goal.status = GoalStatus.objects.get(pk=3) # pk2 = Accomplished
+    else:
+        note = ''
+    
 
 
     return render(request, 'goals/goal.html', context= {
@@ -143,11 +141,21 @@ def new_goal_step(request, id):
 
     if request.method == 'POST':
         form = GoalStepForm(request.POST)
+        
         if form.is_valid():
             title = form.cleaned_data['title']
             amount = form.cleaned_data['amount']
+            accomplished = request.POST.get('accomplished')
+
+
+            if accomplished == 'Accomplished':
+
+                goal_done = GoalStatus.objects.get(pk=3) # 3 == accomplished
+                selected_goal.status = goal_done
+                selected_goal.save()
 
             add = Steps.objects.create(goal=selected_goal, title=title, amount=amount)
+
 
     return HttpResponseRedirect(reverse("goals:goal", kwargs={'id': id}))
 
@@ -192,6 +200,32 @@ def dismiss_trending(request):
 
     return HttpResponseRedirect(reverse('goals:index'))
 
+
+# ==================================================== HIT LIKE
+def like(request, id):
+    current_user = User.objects.get(username=request.user)
+    requested_goal = Goal.objects.get(pk=id)
+    likes = requested_goal.likes.all()
+
+    # If user has not liked yet => LIKE
+    if current_user not in likes:
+        requested_goal.likes.add(current_user)
+        note = 'liked'
+    else:
+        # If user has already liked => UNLIKE
+        requested_goal.likes.remove(current_user)
+        note = 'unliked'
+
+    updated_goal = Goal.objects.get(pk=id)
+
+    goal_response = {
+        'num_likes': updated_goal.likes.count(),
+        'active_class': note,
+    }
+    return JsonResponse(goal_response)
+
+
+
 # ==================================================== REGISTER VIEW
 def register(request):
     if request.method == "POST":
@@ -233,7 +267,6 @@ def login_view(request):
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            catch(user)
             login(request, user)
             return HttpResponseRedirect(reverse("goals:index"))
         else:
