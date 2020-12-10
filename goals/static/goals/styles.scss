@@ -89,6 +89,7 @@ body {
     .like-active {
         fill: orange;
         fill-opacity: 100% !important;
+        
     }
 
     .like-stroke {
@@ -218,15 +219,16 @@ body {
 
 .profile {
 
-    .profile-container {
-        @extend %containerCenter;
-        
-        form {
-            color: white;
-            padding: 20px;
-            width: 50vh;
-            background-color: rgba(255, 255, 255, 0.205);
-        }
+    background-color: white;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    
+    .sidenav {
+        padding: 0px 10px;
+    }
+
+    .contents {
+        padding: 8px 16px;
     }
 
 }

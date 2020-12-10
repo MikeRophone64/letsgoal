@@ -5,23 +5,81 @@
 {% block title %} Profile {% endblock %}
 
 {% block body %}
-{% if user == current_user %}
-    <h1>WELCOME HOME</h1>
-{% else %}
-    <h1>Profile: {{current_user}}</h1>
-{% endif %}
-<div class="profile">
-    <div class="profile-container">
-        <h4></h4>
-        <form action="" class="rounded">
-            {% csrf_token %}
-            {{ UserForm|crispy }}
-            <label for="date_of_birth">{{ ProfileForm.date_of_birth.label }}</label>
-            {{ ProfileForm.date_of_birth }}
-        </form>
-    
-    </div>
-</div>
+    {% if user == current_user %}
+        <h2 style="padding: 8px 16px;">My profile</h2>
+    {% else %}
+        <h2 style="padding: 8px 16px;">Profile: {{ current_user }}</h2>
+    {% endif %}
+    <div class="profile row rounded">
+        <div class="sidenav">
+            <ul class="nav flex-column">
+                <li class="nav-item profile-nav" data-name="overview">
+                  <a class="nav-link active" href="#">Overview</a>
+                </li>
+                <li class="nav-item profile-nav" data-name="information">
+                  <a class="nav-link" href="#">My information</a>
+                </li>
+                <li class="nav-item profile-nav" data-name="change-password">
+                  <a class="nav-link" href="#">Change password</a>
+                </li>
+              </ul>
+        </div>
+        <div class="contents">
+            <div class="profile-overview">
+                
+                <h2>Overview</h2>
+                <h4>My Goals</h4>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Number of Goals</td>
+                            <td>% 15 %</td>
+                        </tr>
+                        <tr>
+                            <td>Not Started</td>
+                            <td>% 5 %</td>
+                        </tr>
+                        <tr>
+                            <td>In Progress</td>
+                            <td>% 9 %</td>
+                        </tr>
+                        <tr>
+                            <td>Accomplished</td>
+                            <td>% 1 %</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="profile-information">
+                <h2>My information</h2>
+                Username
+                email
+                date of birth
 
-<a href="{% url 'goals:index' %}">Back home</a>
+                submit
+            </div>
+            <div class="profile-change-password">
+                <h2>Change password</h2>
+                <br>
+                <form action="">
+                    <div class="form-group">
+                        <label for="password">Your current Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter your current Password" required>
+                    </div> <hr>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Your new Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm new Password" required>
+                        <small id="confirmHelp" class="form-text"></small>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submitPassword" disabled>Submit</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
 {% endblock%}

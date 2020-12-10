@@ -5,7 +5,7 @@ Pages
 - Register Page @done
 - Dashboard (index)
     - create new Goal button @done
-    - likes
+    - likes @done
 
 - Profile Page
     - Change profile
@@ -18,3 +18,7 @@ Pages
             - number of goals in progress
             - number of not started
 - 
+
+Bugs
+- Add Steps: if amount 0 why None?
+- Add Steps: if financial then show amount else don't 

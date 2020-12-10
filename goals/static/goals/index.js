@@ -1,6 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM ready")
 
+
+    // TEST FETCH REST API
+    fetch('/api/v1/goals/?format=json')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.results)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+    // WORKS !!
+
+
+
+
     $(document).ready(function() {
 
         // Datepicker function
@@ -64,6 +79,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 target_like.find(".numlikes").html(goal_response.num_likes)
             })
         })
+
+
+        //User Profile
+        // Show Overview and hide others by default
+
+        $(".profile-overview").show();
+        $(".profile-overview").siblings().hide();
+
+        // Show and hide Profile sections
+        $(document).on("click", ".profile-nav", function() {
+
+            const myTarget = this.dataset.name;
+            $(".profile-" + myTarget).show()
+            $(".profile-" + myTarget).siblings().hide()
+        })
+
+    // User Profile Password change
+    // Enable submit if new password and confirm password match
+    const confirmHelp = document.getElementById('confirmHelp');
+    const submitPassword = document.getElementById('submitPassword');
+
+    $("#confirmPassword").on('keyup', function() {
+
+        if($("#newPassword").val() === $("#confirmPassword").val()) {
+            confirmHelp.innerHTML = "Passwords match!";
+            confirmHelp.style.color = "green";
+            submitPassword.disabled = false;
+        } else {
+            confirmHelp.innerHTML = "Passwords do not match...";
+            confirmHelp.style.color = "red";
+            submitPassword.disabled = true;
+        }
+    })
     });
 
 })

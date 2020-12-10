@@ -178,8 +178,7 @@ def profile(request, username):
     user_profile = Profile.objects.get_or_create(user=current_user)
 
     # populate Forms 
-    uf_data = {'username': current_user.username, 'email': current_user.email, 
-                'password': current_user.password,}
+    uf_data = {'username': current_user.username, 'email': current_user.email, }
     pf_data = {'date_of_birth': current_user.profile.date_of_birth}
     user_form = UserForm(initial=uf_data)
     profile_form = ProfileForm(initial=pf_data)

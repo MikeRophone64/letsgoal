@@ -1,4 +1,4 @@
-.login-form .form-container, .profile .profile-container {
+.login-form .form-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -192,11 +192,18 @@ body {
   float: right;
 }
 
-.profile .profile-container form {
-  color: white;
-  padding: 20px;
-  width: 50vh;
-  background-color: rgba(255, 255, 255, 0.205);
+.profile {
+  background-color: white;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+.profile .sidenav {
+  padding: 0px 10px;
+}
+
+.profile .contents {
+  padding: 8px 16px;
 }
 
 @media (max-width: 500px) {
