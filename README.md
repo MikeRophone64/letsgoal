@@ -1,11 +1,14 @@
 # Let's Goal!
 ## Description
 Let's Goal is an app that allows you to set goals, add steps to them to track your progress until you've accomplished them. Users can like Goals posted by other users and even copy them if they like to!
+Their User Profile gives them a quick overview of all the Goals they have created, the ones that are _not started_, _in progress_ and _accomplished_.
 
 ## Specifications
 With this final project I have attempted to user more in depth Django features, as well as other practives such as:
-- learning to use Git, adding, committing, and pushing to branches
+- Creating and using a virtual environment 
+- Learning to use Git, adding, committing, pushing and pulling
 - Creating a Django REST API using the Django REST Framework
-- Uploading files to the Database
-- Using svg for items such as Like buttons, fill them 
+- Creating Serializers in a seperate file
+- Uploading files (mostly images) to the Database
+- Using SVG for items such as Like buttons and manipulate their style
 - Making use of jQuery to manipulate the DOM
