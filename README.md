@@ -4,7 +4,7 @@ Let's Goal is an app that allows you to set goals, add steps to them to track yo
 Their User Profile gives them a quick overview of all the Goals they have created, the ones that are _not started_, _in progress_ and _accomplished_.
 
 ## What I have learned with this project
-With this final project I have attempted to user more in depth Django features, as well as other practices such as:
+With this final project I have attempted to use more in depth Django features, as well as other practices such as:
 - Creating and using a virtual environment 
 - Learning to use Git, adding, committing, pushing and pulling
 - Creating a Django REST API using the Django REST Framework
