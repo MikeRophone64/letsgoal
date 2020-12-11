@@ -174,6 +174,13 @@ def profile(request, username):
 
     user_profile = Profile.objects.get_or_create(user=current_user)
 
+    # Get user goals for stats
+    user_goals = Goal.objects.filter(created_by=current_user)
+    goal_accomplished = Goal.objects.filter(created_by=current_user, status=3).count()  # 3 == Accomplished
+    goal_in_progress = Goal.objects.filter(created_by=current_user, status=2).count()  # 2 == In Progress
+    goal_not_started = Goal.objects.filter(created_by=current_user, status=1).count()  # 1 == Not Started
+
+
     form = PasswordChangeForm(request.user)
 
     # populate Forms 
@@ -187,6 +194,10 @@ def profile(request, username):
         'UserForm': user_form,
         'ProfileForm': profile_form,
         'form': form,
+        'user_goals': user_goals,
+        'accomplished': goal_accomplished,
+        'inProgress': goal_in_progress,
+        'notStarted': goal_not_started,
     })
 
 
@@ -205,6 +216,31 @@ def update_password(request):
         else:
             messages.info(request, 'Please correct the error below.', extra_tags="danger")
             return HttpResponseRedirect(reverse('goals:profile', kwargs={'username': current_user.username}))
+
+
+# ==================================================== CHANGE PROFILE INFO
+def update_profile(request):
+    current_user = User.objects.get(username=request.user)
+
+    if request.method == 'POST':
+        new_username = request.POST['username']
+        new_email = request.POST['email']
+        new_date_of_birth = request.POST['date_of_birth']
+
+        catch(current_user.profile.date_of_birth)
+
+    
+        current_user.username = new_username
+        current_user.email = new_email
+        current_user.save()
+
+        current_user.profile.date_of_birth = new_date_of_birth
+        current_user.profile.save()
+
+        new_user = User.objects.get(username=new_username)
+
+        messages.info(request, 'Profile updated.', extra_tags="success")
+        return HttpResponseRedirect(reverse('goals:profile', kwargs={'username': current_user.username}))
 
 
 # ==================================================== DISMISS TRENDING

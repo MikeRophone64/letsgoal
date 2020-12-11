@@ -3,22 +3,24 @@ Pages
 
 - Login page @done
 - Register Page @done
-- Copy goals
 - Dashboard (index)
     - create new Goal button @done
     - likes @done
 
 - Profile Page
     - Change profile
-        - change name
-        - change password VIEW
-        - statistics
-            - number of goals
-            - number of achieved goals
-            - number of goals in progress
-            - number of not started
+        - change name @done
+        - change password VIEW @done
+        - statistics @done
+            - number of goals @done
+            - number of achieved goals @done
+            - number of goals in progress @done
+            - number of not started @done
 - 
 
 Bugs
-- Add Steps: if amount 0 why None?
-- Add Steps: if financial then show amount else don't 
+- Add Steps: if financial then show amount else don't @done
+- Add Steps: if amount 0 why None? @done
+- view number of likes on index @done
+
+- remove Username from nav bar

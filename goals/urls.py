@@ -24,6 +24,7 @@ urlpatterns = [
     path("delete_goal/<int:id>", views.delete_goal, name="delete_goal"),
     path("like/<int:id>", views.like, name="like"),
     path("update_password", views.update_password, name="update_password"),
+    path("update_profile", views.update_profile, name="update_profile"),
     # path("api/v1/goals/<int:id>/", goals.api_views.GoalRetrieveUpdateDestroy.as_view()),
 ] 
 

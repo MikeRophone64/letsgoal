@@ -20,7 +20,7 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    date_of_birth = forms.DateField(widget=(forms.DateInput(format='%d/%m/%Y', attrs={'class': 'form-control', 'id': 'datepicker'})))
+    date_of_birth = forms.DateField(widget=(forms.DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'id': 'datepicker'})))
     class Meta:
         model = Profile
         fields = ['profile_picture', 'date_of_birth',]
