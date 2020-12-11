@@ -194,16 +194,6 @@ def profile(request, username):
 def update_password(request):
     current_user = User.objects.get(username=request.user)
 
-    # if request.method == "POST":
-    #     old_password = current_user.password
-    #     new_password = request.POST['newPassword']
-
-    #     catch(old_password, new_password)
-
-    #     current_user.password = new_password
-    #     current_user.save()
-    #     update_session_auth_hash(request, user)  # Important!
-
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
