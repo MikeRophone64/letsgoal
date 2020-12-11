@@ -1,7 +1,8 @@
 import datetime
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.db.models import Count
@@ -164,10 +165,6 @@ def new_goal_step(request, id):
 @login_required(login_url="goals:login")
 def profile(request, username):
 
-    if request.method == 'POST':
-        pass
-
-
     # if no profile exists, create one 
     try:
         current_user = User.objects.get(username=username)
@@ -176,6 +173,8 @@ def profile(request, username):
         return HttpResponseRedirect(reverse("goals:index"))
 
     user_profile = Profile.objects.get_or_create(user=current_user)
+
+    form = PasswordChangeForm(request.user)
 
     # populate Forms 
     uf_data = {'username': current_user.username, 'email': current_user.email, }
@@ -187,7 +186,35 @@ def profile(request, username):
         'current_user': current_user,
         'UserForm': user_form,
         'ProfileForm': profile_form,
+        'form': form,
     })
+
+
+# ==================================================== CHANGE PASSWORD
+def update_password(request):
+    current_user = User.objects.get(username=request.user)
+
+    # if request.method == "POST":
+    #     old_password = current_user.password
+    #     new_password = request.POST['newPassword']
+
+    #     catch(old_password, new_password)
+
+    #     current_user.password = new_password
+    #     current_user.save()
+    #     update_session_auth_hash(request, user)  # Important!
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+
+            messages.info(request, 'Your password was successfully updated!', extra_tags="success")
+            return HttpResponseRedirect(reverse('goals:profile', kwargs={'username': current_user.username}))
+        else:
+            messages.info(request, 'Please correct the error below.', extra_tags="danger")
+            return HttpResponseRedirect(reverse('goals:profile', kwargs={'username': current_user.username}))
 
 
 # ==================================================== DISMISS TRENDING

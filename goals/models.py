@@ -76,15 +76,6 @@ class Goal(models.Model):
     def num_copies(self):
         return self.copied_by.all().count()
 
-    @property
-    def is_trending(self):
-        trending = Goal.objects.all().order_by('-likes')
-        # trending = Goal.objects.aggregate(Max('likes'))
-        print(f">>> {trending}")
-        # if self == trending:
-        #     return True
-        return False
-
 
 
 class Steps(models.Model):

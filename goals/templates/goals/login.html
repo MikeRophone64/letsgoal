@@ -6,12 +6,6 @@
 {% block body %}
 
 
-{% if messages %}
-    {% for message in messages %}
-        <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
-    {% endfor %}
-{% endif %}
-
 <section class="login-form">
     <div class="form-container">
         <form action="{% url 'goals:login' %}" method="POST">

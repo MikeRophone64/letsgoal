@@ -3,15 +3,15 @@ Pages
 
 - Login page @done
 - Register Page @done
+- Copy goals
 - Dashboard (index)
     - create new Goal button @done
     - likes @done
 
 - Profile Page
     - Change profile
-        - change image
         - change name
-        - change password
+        - change password VIEW
         - statistics
             - number of goals
             - number of achieved goals
