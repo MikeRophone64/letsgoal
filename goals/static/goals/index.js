@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         })
 
+        
         // Click  like buttons to toggle Active class
         // and fetch data through API
         $(document).on("click", ".like", function() {
@@ -58,11 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // change color
             const target_like = $(this);
             
-
             // fetch like API
             const id = this.dataset.id;
             const url = "like/" + id;
-
 
             fetch(url)
             .then(response => response.json())

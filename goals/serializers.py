@@ -13,9 +13,5 @@ class GoalSerializer(serializers.ModelSerializer):
             'deadline', 'amount', 'num_likes', 'num_supports', 'num_copies', 'is_trending',
             )
 
-    # def to_representation(self, instance):
-    #     data = super().to_representation(instance)
-    #     data['trending'] = instance.trending()
-    #     return data 
 
         

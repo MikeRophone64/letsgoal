@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <h5 class="card-title" style="text-align: center;">{{ trending_goal.title }}</h5>
                         <p class="card-text" style="text-align: center;">{{ trending_goal.category }} Goal</p>
-                    <a href="" class="btn btn-primary">View Goal</a>
+                    <a href="{% url 'goals:goal' trending_goal.id %}" class="btn btn-primary">View Goal</a>
                     </div>
                 </div>
             </div>

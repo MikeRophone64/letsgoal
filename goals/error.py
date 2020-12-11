@@ -4,5 +4,5 @@ def catch(*args):
         for item in args:
             print(">>> " + str(item))
     else:
-        print(">>> hello")
+        print(">>> error")
     print("===============================")

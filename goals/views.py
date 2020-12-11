@@ -121,6 +121,7 @@ def goal(request, id):
         if amount_to_go <= 0:
             note = "WOHOO You made it!"
             selected_goal.status = GoalStatus.objects.get(pk=3) # pk2 = Accomplished
+            selected_goal.save()
     else:
         note = ''
     
@@ -250,6 +251,7 @@ def dismiss_trending(request):
     current_user.profile.display_trending = False
     current_user.profile.save()
 
+    messages.info(request, "Trending goals won't appear anymore", extra_tags="success")
     return HttpResponseRedirect(reverse('goals:index'))
 
 

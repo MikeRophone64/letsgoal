@@ -20,14 +20,6 @@ class GoalList(ListAPIView):
     search_fields = ('title', 'description')
     pagination_class = GoalPagination
 
-    # def get_queryset(self):
-    #     is_trending = self.request.query_params.get('is_trending', None)
-    #     if is_trending is None:
-    #         return super().get_queryset()
-    #     queryset = Goal.objects.all()
-    #     if is_trending.lower() == 'true':
-    #         return [obj for obj in queryset if obj.trending == True]
-    #     return queryset
 
 class GoalCreate(CreateAPIView):
     serializer_class = GoalSerializer
